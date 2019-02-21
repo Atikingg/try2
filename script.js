@@ -13,6 +13,8 @@ function draw() {
     for (var c = 0; c < columnTile; c++) {
       var tile = ground[r][c]
     }
-
   }
 }
+
+var tileRow = (tile / tilesAmount) | 0
+var tileCow = (tile % tilesAmount) | 0
