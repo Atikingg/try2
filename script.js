@@ -16,5 +16,5 @@ function draw() {
   }
 }
 
-var tileRow = (tile / tilesAmount) | 0
-var tileCow = (tile % tilesAmount) | 0
+var tileRow = (tiles / tilesAmount) | 0
+var tileCow = (tiles % tilesAmount) | 0
