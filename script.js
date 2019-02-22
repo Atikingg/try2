@@ -19,8 +19,8 @@ function draw() {
     for (var c = 0; c < columnTile; c++) {
       var tile = ground[r][c]
       var tileRow = (tile / tilesAmount) | 0
-      var tileCow = (tile % tilesAmount) | 0
-      context.drawImage(tiles, (tileCow * tileSize), (tileRow * tileSize), tileSize, tileSize, (c * tileSize), (r * tileSize), tileSize, tileSize)
+      var tileCol = (tile % tilesAmount) | 0
+      context.drawImage(tiles, (tileCol * tileSize), (tileRow * tileSize), tileSize, tileSize, (c * tileSize), (r * tileSize), tileSize, tileSize)
     }
   }
 }
