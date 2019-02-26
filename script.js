@@ -12,18 +12,24 @@ var rightPressed = false
 var leftPressed = false
 var upPressed = false
 var downPressed = false
-var persX = 0
-var persY = 0
-var dx = 4
-var dy = 4
+var pers = {x : 0, y : 0, width: 10, height: 10}
+var water = {x: 0, y: 0, count: 0}
+var dx = 1
+var dy = 1
 
 var tileSize = 40
 var tileLength = 20
 var tileHeight = 9
 var tilesAmount = 5
-var tileName = 0
+var tileName
 var tileRow
 var tileCol
+
+
+
+
+
+
 
 var locate = [
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -36,6 +42,8 @@ var locate = [
 [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
 [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
 ]
+
+
 
 document.addEventListener("keyup", keyUpHandler, false)
 document.addEventListener("keydown", keyDownHandler, false)
@@ -70,34 +78,62 @@ function keyUpHandler(e) {
     }
 }
 
-
-
+tiles.onload = function () {
+  draw()
+}
 
 function draw() {
+
 
   for (var i = 0; i < tileHeight; i++) {
     for (var j = 0; j < tileLength; j++) {
       tileName = locate[i][j]
       tileRow = (tileName / tilesAmount) | 0
       tileCol = (tileName % tilesAmount) | 0
-      context.drawImage(tiles, (tileCol * tileSize), (tileRow * tileSize), tileSize, tileSize, (j * tileSize), (i * tileSize), tileSize, tileSize)
+
+      if (tileName == 0)
+        context.drawImage(tiles, (tileCol * tileSize), (tileRow * tileSize), tileSize, tileSize, (j * tileSize), (i * tileSize), tileSize, tileSize)
+      if (tileName == 1)
+        context.drawImage(tiles, (tileCol * tileSize), (tileRow * tileSize), tileSize, tileSize, (j * tileSize), (i * tileSize), tileSize, tileSize)
+      if (tileName == 2)
+        context.drawImage(tiles, (tileCol * tileSize), (tileRow * tileSize), tileSize, tileSize, (j * tileSize), (i * tileSize), tileSize, tileSize)
+      if (tileName == 3)
+        context.drawImage(tiles, (tileCol * tileSize), (tileRow * tileSize), tileSize, tileSize, (j * tileSize), (i * tileSize), tileSize, tileSize)
+      if (tileName == 4) {
+        water.count++
+        water.x = j * tileSize
+        water.y = i * tileSize
+        context.drawImage(tiles, (tileCol * tileSize), (tileRow * tileSize), tileSize, tileSize, water.x, water.y, tileSize, tileSize)
+        if (pers.x == water.x && pers.y == water.y ) {
+          dx = -1
+          dy = -1
+        }
+
+
+      }
+
     }
   }
 
-  context.drawImage(sprite, persX, persY)
+
+  context.drawImage(sprite, pers.x, pers.y, pers.width, pers.height)
 
 
-  if (rightPressed && persX < tileLength * tileSize)
-      persX += dx
-  if (leftPressed && persX > 0)
-      persX -= dx
-  if (upPressed && persY > 0)
-      persY -= dy
-  if (downPressed && persY < tileHeight * tileSize)
-      persY += dy
+    if (rightPressed && pers.x < tileLength * tileSize)
+        pers.x += dx
+    if (leftPressed && pers.x > 0)
+        pers.x -= dx
+    if (upPressed && pers.y > 0)
+        pers.y -= dy
+    if (downPressed && pers.y < tileHeight * tileSize)
+        pers.y += dy
 
 
+    requestAnimationFrame(draw)
 }
 
 
-setInterval(draw,40)
+
+
+
+//setInterval(draw, 30)
